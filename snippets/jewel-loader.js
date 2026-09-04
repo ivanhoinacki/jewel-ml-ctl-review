@@ -1,12 +1,13 @@
-/* Jewel ML loader — clients paste this once, just before </body>. */
+/* Jewel ML loader. Clients paste this once, just before </body>.
+   Requires: <div id="jml-complete-the-look" data-integration="YOUR_ID" data-sku="CURRENT_SKU"></div> */
 (function () {
-  var s = document.createElement('script');
-  s.src = 'https://cdn.jewelml.io/widgets/latest/jewel.js';
-  document.head.appendChild(s);
+  var container = document.getElementById('jml-complete-the-look');
+  if (!container || !container.dataset.integration || !container.dataset.sku) return;
 
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jewelml.io/widgets/v1/jewel.js';
   s.onload = function () {
-    var container = document.getElementById('jml-complete-the-look');
-    var sku = window.location.pathname.split('/').pop();
-    window.jewelml.mountCompleteTheLook(container, 'victorias-secret', sku);
+    window.jewelml.mountCompleteTheLook(container, container.dataset.integration, container.dataset.sku);
   };
+  document.head.appendChild(s);
 })();
